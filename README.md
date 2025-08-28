@@ -13,6 +13,7 @@ This is an **API service** built with **Laravel**.
 - [Project Structure](#project-structure)
 - [Import Commands](#import-commands)
 - [Api Endpoints](#api-endpoints)
+- [Jobs](#jobs)
 - [Tests](#tests)
 
 ## Overview
@@ -377,6 +378,18 @@ netflixAPI/
     </tbody>
 </table>
 
+---
+
+## Jobs
+- Import jobs
+  - You could set up jobs priority in import.php config file. Example below will make to execute not mentioned jobs, 
+  movies and users first. If movies and users finished without errors than review job will process
+  ``` 
+  'jobs_priorities' => [
+        'reviews' => ['movies', 'users']
+  ]
+  ```
+  
 ---
 
 ## Tests

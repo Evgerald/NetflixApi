@@ -7,7 +7,9 @@ namespace App\Utilities\Import;
  *
  * Utility for preparing files to import
  *
- * @version 1.0
+ * @version 2.0
+ *
+ * @since version 2.0 method sortByPriority() was removed
  */
 class ImportFileManager
 {
@@ -21,7 +23,7 @@ class ImportFileManager
     public function prepareFiles(array $files): array
     {
         $this->files = $files;
-        $this->filterByFormat()->removeDuplicates()->removeNotAllowed()->sortByPriority();
+        $this->filterByFormat()->removeDuplicates()->removeNotAllowed();
 
         return $this->files;
     }
@@ -63,23 +65,6 @@ class ImportFileManager
             $name = pathinfo($file, PATHINFO_FILENAME);
 
             return in_array($name, $allowed, true);
-        });
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function sortByPriority(): static
-    {
-        $priorityMap = array_flip(config('import.allowed_files_sorted_by_priority'));
-
-        usort($this->files, function ($firstFile, $secondFile) use ($priorityMap) {
-            $firstPosition = $priorityMap[pathinfo($firstFile, PATHINFO_FILENAME)];
-            $secondPosition = $priorityMap[pathinfo($secondFile, PATHINFO_FILENAME)];
-
-            return $firstPosition <=> $secondPosition;
         });
 
         return $this;

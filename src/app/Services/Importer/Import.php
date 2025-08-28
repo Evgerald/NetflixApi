@@ -3,6 +3,7 @@
 namespace App\Services\Importer;
 
 use App\Utilities\Import\ImportFileManager;
+use Throwable;
 
 /**
  * Import
@@ -23,6 +24,8 @@ readonly class Import
      * @param array $files
      *
      * @return void
+     *
+     * @throws Throwable
      */
     public function import(array $files): void
     {
